@@ -4,7 +4,7 @@ const db = require('../src/db')
 const app = require('../src/app')
 
 describe('read artists', () => {
-  let artists
+  let artists;
   beforeEach(async () => {
     const responses = await Promise.all([
       db.query('INSERT INTO Artists (name, genre) VALUES( $1, $2) RETURNING *', [
@@ -41,17 +41,16 @@ describe('read artists', () => {
 
   describe('GET /artists/{id}', () => {
     it('returns a specific artist based on the id', async () => {
-        console.log(artists);
         const { status, body } = await request(app).get(`/artists/${artists[0].id}`).send();
 
         expect(status).to.equal(200);
         expect(body).to.deep.equal(artists[0]);
     });
 
-    it('returns an error if the artist is not in the database', async() => {
+    it('returns a 404 error if the artist is not in the database', async() => {
         const { status, body } = await request(app).get('/artists/999999999').send();
 
-        expect(status).to.equal(500);
+        expect(status).to.equal(404);
         expect(body.message).to.equal('Artist 999999999 does not exist.');
     });
   });
