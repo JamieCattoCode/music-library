@@ -20,3 +20,19 @@ exports.readArtists = async (req, res) => {
     }
 }
 
+exports.readArtist = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(`ID = ${id}`);
+        const { rows: [artist] } = await db.query('SELECT * FROM Artist WHERE id = $1', [id]);
+
+        if (!artist) {
+            return res.status(400).json(`Artist ${id} does not exist.`);
+        }
+
+        res.status(200).json(artist);
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
+}
+
