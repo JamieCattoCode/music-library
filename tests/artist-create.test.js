@@ -3,7 +3,7 @@ const request = require('supertest');
 const app = require('../src/app');
 const db = require('../src/db');
 
-describe('create artist', () => {
+describe('create artists', () => {
     describe('/artists', () => {
         describe('POST', () => {
             it('creates a new artist', async () => {
