@@ -26,7 +26,7 @@ exports.readArtist = async (req, res) => {
         const { rows: [artist] } = await db.query('SELECT * FROM Artists WHERE id = $1', [id]);
 
         if (!artist) {
-            return res.status(404).json(`Artist ${id} does not exist.`);
+            return res.status(404).json({message: `Artist ${id} does not exist.`});
         }
 
         res.status(200).json(artist);
