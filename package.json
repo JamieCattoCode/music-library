@@ -4,7 +4,11 @@
   "description": "This project is a music library.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "node scripts/migrate.js",
+    "pretest": "node scripts/create-database.js test && npm run migrate test",
+    "test": "mocha tests/**/*.js --exit --recursive --timeout 6000 --file ./tests/test-setup.js test",
+    "posttest": "node scripts/drop-database.js test",
+    "prestart": "node scripts/create-database.js && npm run migrate",
     "start": "nodemon -r dotenv/config index.js"
   },
   "repository": {
@@ -19,11 +23,16 @@
   },
   "homepage": "https://github.com/JamieCattoCode/music-library#readme",
   "devDependencies": {
+    "chai": "^4.3.7",
     "dotenv": "^16.0.3",
     "eslint": "^8.29.0",
-    "nodemon": "^2.0.20"
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pg": "^8.8.0",
+    "postgres-migrations": "^5.3.0"
   }
 }
