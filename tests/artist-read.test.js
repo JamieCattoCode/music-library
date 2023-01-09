@@ -1,7 +1,7 @@
-const { expect } = require('chai')
-const request = require('supertest')
-const db = require('../src/db')
-const app = require('../src/app')
+const { expect } = require('chai');
+const request = require('supertest');
+const db = require('../src/db');
+const app = require('../src/app');
 
 describe('read artists', () => {
   let artists;

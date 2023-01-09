@@ -6,5 +6,6 @@ const router = express.Router();
 router.post('/', artistController.createArtist);
 router.get('/', artistController.readArtists);
 router.get('/:id', artistController.readArtist);
+router.patch('/:id', artistController.updateArtist);
 
 module.exports = router;
